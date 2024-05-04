@@ -1,0 +1,103 @@
+1----------------------------------------------------------
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    @property
+    def area(self):
+        return self.width * self.height
+f = Rectangle(10, 20)
+print("ширина прямоугольника:", f.width)
+print("высота прямоугольника:", f.height)
+print("площадь прямоугольника:", f.area)
+
+2----------------------------------------------------------
+class Temperatura:
+    def __init__(self, celsiya):
+        self.celsiya = celsiya
+    @property
+    def farenпeit(self):
+        return (self.celsiya * 9/5) + 32
+f2 = Temperatura(10)
+print("температура в градусах цельсия:", f2.celsiya)
+print("температура в градусах фаренгейта:", f2.farenпeit)
+
+3----------------------------------------------------------
+class StringManipulator:
+    @staticmethod
+    def reverse(input_string):
+        return input_string[::-1]
+one_string = "кпк сбываются мечты"
+two_string = StringManipulator.reverse(one_string)
+print("было:", one_string)
+print("стало:", two_string)
+
+4----------------------------------------------------------
+import math
+class Circle:
+    @staticmethod
+    def area(radius):
+        return math.pi * radius ** 2
+radius = 10
+print(f"площадь круга с радиусом {radius} равна {Circle.area(radius)}")
+
+1----------------------------------------------------------
+def message_decorator(func):
+    def one(*args, **kwargs):
+        print("выполнение сначала")
+        return func(*args, **kwargs)
+    return one
+@message_decorator
+def priv(name):
+    return f"привет, {name}!"
+print(priv("вася"))
+
+2----------------------------------------------------------
+def multicast(func):
+    def one(*args, **kwargs):
+        func(*args, **kwargs)
+        return func(*args, **kwargs)
+    return one
+@multicast
+def priv(name):
+    print(f"привет, {name}!")
+priv("вася")
+
+3----------------------------------------------------------
+def return_as_string(func):
+    def one(*args, **kwargs):
+        result = func(*args, **kwargs)
+        return str(result)
+    return one
+@return_as_string
+def add(a, b):
+    return a + b
+result = add(5, 10)
+print(result)
+
+4----------------------------------------------------------
+def catch_exceptions(func):
+    def one(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception as e:
+            print(f"исключение {e}")
+    return one
+@catch_exceptions
+def divide(a, b):
+    return a / b
+divide(10, 0)
+
+5----------------------------------------------------------
+def replace_result(replacement_value):
+    def decorator(func):
+        def one(*args, **kwargs):
+            result = func(*args, **kwargs)
+            return replacement_value
+        return one
+    return decorator
+@replace_result("не скажу")
+def multiply(a, b):
+    return a * b
+result = multiply(6, 8)
+print(result)
